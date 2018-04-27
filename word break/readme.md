@@ -38,3 +38,14 @@ Note:
 
 <img src="http://chart.googleapis.com/chart?cht=tx&chl=\Large dp[i]= test " style="border:none;">
 
+When \\( a \ne 0 \\), there are two solutions to \\(ax^2 + bx + c = 0\\) and they are:
+$$ x = {-b \pm \sqrt{b^2-4ac} \over 2a} $$
+
+$$
+\begin{aligned}
+\dot{x} & = \sigma(y-x) \\
+\dot{y} & = \rho x - y - xz \\
+\dot{z} & = -\beta z + xy
+\end{aligned}
+$$
+
