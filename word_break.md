@@ -36,7 +36,7 @@ Note:
     dp[i] = true if 存在j属于0到i-1，且dp[j]为true, s[j..i]在字典中
     否则为false
 
-```c
+```c++
 class Solution {
 public:
     bool wordBreak(string s, vector<string>& wordDict) {

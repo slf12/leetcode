@@ -92,7 +92,7 @@ The solution set must not contain duplicate combinations.
 ### 解题思路
 使用递归实现
 
-```c
+```c++
 class Solution {
 public:
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
@@ -153,7 +153,7 @@ Example 1:
 ### 解题思路
 使用递归，但是相邻的相等数字，只添加一次
 
-```c
+```c++
 class Solution {
 public:
    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {

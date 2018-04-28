@@ -70,7 +70,7 @@ Given a collection of numbers that might contain duplicates, return all possible
     错误代码
 下面代码结果有重复，因为在交换时使用```if(i != pos && nums[i] == nums[pos]) continue; ```来判断是否交换过，是不正确的，因为虽然刚开始对数组进行了排序，但是经过交换后，数组不再有序
 
-```c
+```c++
 class Solution {
 public:
     void permute(vector<vector<int>>& res, int pos, vector<int>& nums)//0...pos-1 already permutated
@@ -101,7 +101,7 @@ public:
 
     正确代码
 
-```c
+```c++
 class Solution {
 public:
     void permute(vector<vector<int>>& res, int pos, vector<int>& nums)//0...pos-1 already permutated
@@ -161,7 +161,7 @@ Here are some examples. Inputs are in the left-hand column and its corresponding
 4、将A<sub>k+1</sub>...A<sub>n</sub>翻转
 即可得到下一个全排列
 
-```c
+```c++
 class Solution {
 public:
     void nextPermutation(vector<int>& nums) {
@@ -225,7 +225,7 @@ Given k will be between 1 and n! inclusive.
 
 当确定完最高位之后，确定下一位，以此类推
 
-```c
+```c++
 class Solution {
 public:
     string getPermutation(int n, int k) {
