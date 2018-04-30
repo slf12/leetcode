@@ -217,7 +217,7 @@ Given k will be between 1 and n! inclusive.
     Input: n = 4, k = 9
     Output: "2314"
 
-###解题思路
+### 解题思路
 
 从高位开始逐一确定
 
