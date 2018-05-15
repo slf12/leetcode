@@ -50,3 +50,141 @@ public:
     }
 };
 ```
+
+### `multiset`使用说明
+#### 定义格式
+```c++
+template<
+    class Key,
+    class Compare = std::less<Key>,
+    class Allocator = std::allocator<Key>
+> class multiset;
+```
+其中key是存储的数据类型，Compare是对key进行比较的函数
+
+查询、插入和修改的复杂度均是O(logn)
+
+和`set`不同的是，`multiset`在保持数据有序的同时，允许数据重复, 内部通常由平衡二叉树实现。
+
+#### 基本操作
+	insert() 插入
+	count() 返回某个值元素的个数
+	find()  返回一个指向被查找到元素的迭代器
+	erase() 删除某个值的所有元素
+	
+#### 使用自定义结构体
+
+需要重定义operator<
+
+```c++
+#include<iostream>
+#include<set>
+using namespace std;
+struct test
+{
+    int a;
+    char s;
+    friend bool operator<(struct test a,struct test b)
+    {
+        return a.s<b.s;
+    }
+};
+multiset<struct test>element;
+int main()
+{
+    struct test a,b,c,d;
+    a.a=1; a.s='d';
+    b.a=2; b.s='c';
+    c.a=4; c.s='b';
+    d.a=3; d.s='a';
+    element.insert(d);
+    element.insert(b);
+    element.insert(c);
+    element.insert(a);
+    multiset<struct test>::iterator it;
+    for(it=element.begin(); it!=element.end();it++)
+        cout<<(*it).a<<" ";
+    cout<<endl;
+    for(it=element.begin(); it!=element.end();it++)
+        cout<<(*it).s<<" ";
+}
+
+```
+
+#### 交集，并集，差集
+```c++
+#include<stdio.h>
+#include<string>
+#include<set>
+#include<iostream>
+#include <algorithm>//包含
+using namespace std;
+
+struct compare//自定义排序方式
+{
+    bool operator() (string s1,string s2)
+    {
+        return s1>s2;
+    }///自定义一个仿函数，仿函数(functor)，就是使一个类的使用看上去象一个函数。其实现就是类中实现一个operator()，这个类就有了类似函数的行为，就是一个仿函数类了。
+};
+int main()
+{
+    set<string,compare> s;//建立第一个集合
+    s.insert(string("apple"));
+    s.insert(string("english"));
+    s.insert(string("bcd"));
+    cout<<"第一个集合s1为:"<<endl;
+    set<string,compare>::iterator it = s.begin();
+    while(it!=s.end())
+        cout<<*it++<<"   ";
+    
+    set<string,compare> s2;//建立第二个集合
+    s2.insert(string("abc"));
+    s2.insert(string("apple"));
+    s2.insert(string("english"));
+    cout<<endl<<"第一个集合s2为:"<<endl;
+    it = s2.begin();
+    while(it!=s2.end())
+        cout<<*it++<<"   ";
+    cout<<endl<<endl;
+    
+    string str[10];
+    string *end =set_intersection(s.begin(),s.end(),s2.begin(),s2.end(),str,compare());//求交集，返回值指向str最后一个元素的尾端
+    /*set_intersection包含于#include <algorithm>   头文件中  其中上面的不一定非要为set容器 也可以使数组 但是前提是要把2个数组都排好序才可以
+     返回值是一个指向交集序列末尾的迭代器 至于是什么迭代器与第5个参数有关 如果是数组 返回为int的迭代器 */
+    cout<<"s1,s2的交集为:"<<endl;
+    string *first = str;
+    while(first<end)
+        cout <<*first++<<" ";
+    
+    
+    cout<<endl<<endl<<"s1,s2的并集为："<<endl;
+    end =set_union(s.begin(),s.end(),s2.begin(),s2.end(),str,compare());//并集
+    first = str;
+    while(first<end)
+        cout <<*first++<<" ";
+    
+    
+    cout<<endl<<endl<<"s2相对于s1的差集："<<endl;
+    first = str;
+    end = std::set_difference(s.begin(),s.end(),s2.begin(),s2.end(),str,compare());//s2相对于s1的差集
+    while(first<end)
+        cout <<*first++<<" ";
+    
+    
+    cout<<endl<<endl<<"s1相对于s2的差集："<<endl;
+    first = str;
+    end = std::set_difference(s2.begin(),s2.end(),s.begin(),s.end(),str,compare());//s1相对于s2的差集
+    
+    while(first<end)
+        cout <<*first++<<" ";
+    cout<<endl<<endl;
+    first = str;
+    end = std::set_symmetric_difference(s.begin(),s.end(),s2.begin(),s2.end(),str,compare());//上面两个差集的并集
+    while(first<end)
+        cout <<*first++<<" ";
+    cout<<endl;
+    
+}
+```
+
